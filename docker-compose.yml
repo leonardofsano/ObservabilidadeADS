@@ -49,5 +49,3 @@ volumes:  # Define volumes para persistência de dados.
 
 networks:  # Define redes para comunicação entre os serviços.
   observability-network:  # Rede personalizada para conectar todos os serviços.
-volumes:
-  - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql

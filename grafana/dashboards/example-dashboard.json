@@ -1,35 +1,35 @@
 {
   "annotations": {
-    "title": "Example Dashboard",
-    "tags": ["example", "dashboard"],
+    "title": "Observabilidade - Painel de Vendas",
+    "tags": ["vendas", "pedidos", "clientes", "produtos"],
     "timezone": "browser",
     "panels": [
       {
         "type": "graph",
-        "title": "PostgreSQL Connections",
+        "title": "Total de Pedidos por Cliente",
         "targets": [
           {
-            "target": "pg_stat_activity_count",
+            "target": "SELECT c.nome, COUNT(p.id) AS total_pedidos, SUM(p.total) AS total_vendas FROM clientes c JOIN pedidos p ON c.id = p.cliente_id GROUP BY c.nome",
             "refId": "A"
           }
         ],
         "xaxis": {
-          "mode": "time",
-          "name": null,
+          "mode": "category",
+          "name": "Cliente",
           "show": true
         },
         "yaxes": [
           {
             "format": "short",
-            "label": "Connections",
+            "label": "Total de Pedidos",
             "logBase": 1,
             "min": null,
             "max": null,
             "show": true
           },
           {
-            "format": "short",
-            "label": null,
+            "format": "currency",
+            "label": "Total de Vendas",
             "logBase": 1,
             "min": null,
             "max": null,
@@ -48,25 +48,21 @@
       },
       {
         "type": "table",
-        "title": "Top Queries",
+        "title": "Estoque de Produtos",
         "targets": [
           {
-            "target": "pg_stat_statements",
+            "target": "SELECT nome, estoque FROM produtos",
             "refId": "B"
           }
         ],
         "columns": [
           {
-            "text": "Query",
-            "value": "query"
+            "text": "Produto",
+            "value": "nome"
           },
           {
-            "text": "Calls",
-            "value": "calls"
-          },
-          {
-            "text": "Total Time",
-            "value": "total_time"
+            "text": "Estoque",
+            "value": "estoque"
           }
         ],
         "pageSize": 10,
